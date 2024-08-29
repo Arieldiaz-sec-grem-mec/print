@@ -1,0 +1,61 @@
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    background-color: #f5f5f7;
+    color: #333;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.container {
+    background-color: #ffffff;
+    border-radius: 15px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    padding: 20px 40px;
+    max-width: 600px;
+    width: 100%;
+}
+
+h1 {
+    text-align: center;
+    color: #1d1d1f;
+    margin-bottom: 10px;
+}
+
+h2 {
+    text-align: center;
+    color: #6e6e73;
+    margin-bottom: 30px;
+}
+
+p {
+    font-size: 16px;
+    line-height: 1.5;
+    margin: 10px 0;
+}
+
+p strong {
+    color: #1d1d1f;
+}
+
+.print-btn {
+    display: block;
+    width: 100%;
+    margin-top: 30px;
+    padding: 10px 0;
+    background-color: #007bff;
+    color: #ffffff;
+    text-align: center;
+    border: none;
+    border-radius: 10px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.print-btn:hover {
+    background-color: #0056b3;
+}
