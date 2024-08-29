@@ -3,17 +3,17 @@ document.addEventListener('DOMContentLoaded', function () {
     function getQueryParams() {
         const params = new URLSearchParams(window.location.search);
         return {
-            id: params.get('id') || 'N/A',
-            nombre: params.get('nombre') || 'N/A',
-            afiliado: params.get('afiliado') || 'N/A',
-            consulta: params.get('consulta') || 'N/A',
-            archivo: params.get('archivo') || '',
-            actividad: params.get('actividad') || 'N/A',
-            empresa: params.get('empresa') || 'N/A',
-            fecha: params.get('fecha') || 'N/A',
-            estado: params.get('estado') || 'N/A',
-            email: params.get('email') || 'N/A',
-            respuesta: params.get('respuesta') || 'N/A'
+            id: params.get('id'),
+            nombre: params.get('nombre'),
+            afiliado: params.get('afiliado'),
+            consulta: params.get('consulta'),
+            archivo: params.get('archivo'),
+            actividad: params.get('actividad'),
+            empresa: params.get('empresa'),
+            fecha: params.get('fecha'),
+            estado: params.get('estado'),
+            email: params.get('email'),
+            respuesta: params.get('respuesta')
         };
     }
 
@@ -21,39 +21,34 @@ document.addEventListener('DOMContentLoaded', function () {
     const data = getQueryParams();
     document.getElementById('id').textContent = data.id;
     document.getElementById('nombre').textContent = data.nombre;
-    document.getElementById('afiliado').textContent = formatAfiliado(data.afiliado);
+    document.getElementById('afiliado').textContent = data.afiliado ? data.afiliado : 'No disponible';
     document.getElementById('consulta').textContent = data.consulta;
+    
+    // Manejo del archivo
+    const archivoElement = document.getElementById('archivo');
+    if (data.archivo) {
+        const archivoData = JSON.parse(data.archivo);
+        if (archivoData.Url) {
+            const url = archivoData.Url;
+            const linkText = archivoData.LinkText || 'Ver archivo';
+            
+            if (url.endsWith('.pdf')) {
+                archivoElement.textContent = linkText;
+                archivoElement.innerHTML = `<a href="${url}" target="_blank">${linkText}</a>`;
+            } else {
+                archivoElement.innerHTML = `<img id="archivo-thumbnail" src="${url}" alt="Imagen del archivo">`;
+            }
+        } else {
+            archivoElement.textContent = 'No disponible';
+        }
+    } else {
+        archivoElement.textContent = 'No disponible';
+    }
+
     document.getElementById('actividad').textContent = data.actividad;
     document.getElementById('empresa').textContent = data.empresa;
     document.getElementById('fecha').textContent = data.fecha;
     document.getElementById('estado').textContent = data.estado;
-    document.getElementById('email').textContent = data.email;
+    document.getElementById('email').textContent = data.email ? data.email : 'No disponible';
     document.getElementById('respuesta').textContent = data.respuesta;
-
-    // Manejar la visualización del archivo
-    if (data.archivo) {
-        const archivoElement = document.getElementById('archivo');
-        const archivoThumbnail = document.getElementById('archivo-thumbnail');
-
-        if (data.archivo.endsWith('.jpg') || data.archivo.endsWith('.jpeg') || data.archivo.endsWith('.png')) {
-            // Mostrar miniatura si es una imagen
-            archivoThumbnail.src = data.archivo;
-            archivoThumbnail.style.display = 'block';
-            archivoElement.style.display = 'none';
-        } else if (data.archivo.endsWith('.pdf')) {
-            // Mostrar el nombre del archivo si es un PDF
-            const pdfName = data.archivo.split('/').pop();
-            archivoElement.textContent = pdfName;
-            archivoThumbnail.style.display = 'none';
-        } else {
-            // Mostrar el enlace como fallback
-            archivoElement.textContent = data.archivo;
-            archivoThumbnail.style.display = 'none';
-        }
-    }
-
-    // Función para formatear el número de afiliado
-    function formatAfiliado(afiliado) {
-        return afiliado.replace(/(\d{6})(\d{2})/, "$1/$2");
-    }
 });
