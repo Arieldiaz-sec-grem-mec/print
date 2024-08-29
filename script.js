@@ -1,23 +1,33 @@
-// Función para obtener el valor de un parámetro de la URL
-function getUrlParameter(name) {
-    const urlParams = new URLSearchParams(window.location.search);
-    return urlParams.get(name);
-}
+document.addEventListener('DOMContentLoaded', function () {
+    // Función para obtener parámetros de la URL
+    function getQueryParams() {
+        const params = new URLSearchParams(window.location.search);
+        return {
+            id: params.get('id'),
+            nombre: params.get('nombre'),
+            afiliado: params.get('afiliado'),
+            consulta: params.get('consulta'),
+            archivo: params.get('archivo'),
+            actividad: params.get('actividad'),
+            empresa: params.get('empresa'),
+            fecha: params.get('fecha'),
+            estado: params.get('estado'),
+            email: params.get('email'),
+            respuesta: params.get('respuesta')
+        };
+    }
 
-// Función para cargar los datos en la página
-function loadPageData() {
-    document.getElementById('id').textContent = getUrlParameter('id') || 'N/A';
-    document.getElementById('nombre').textContent = getUrlParameter('nombre') || 'N/A';
-    document.getElementById('afiliado').textContent = getUrlParameter('afiliado') || 'N/A';
-    document.getElementById('consulta').textContent = getUrlParameter('consulta') || 'N/A';
-    document.getElementById('archivo').textContent = getUrlParameter('archivo') || 'N/A';
-    document.getElementById('actividad').textContent = getUrlParameter('actividad') || 'N/A';
-    document.getElementById('empresa').textContent = getUrlParameter('empresa') || 'N/A';
-    document.getElementById('fecha').textContent = getUrlParameter('fecha') || 'N/A';
-    document.getElementById('estado').textContent = getUrlParameter('estado') || 'N/A';
-    document.getElementById('email').textContent = getUrlParameter('email') || 'N/A';
-    document.getElementById('respuesta').textContent = getUrlParameter('respuesta') || 'N/A';
-}
-
-// Cargar los datos cuando la página se haya cargado
-document.addEventListener('DOMContentLoaded', loadPageData);
+    // Cargar los datos en la página
+    const data = getQueryParams();
+    document.getElementById('id').textContent = data.id;
+    document.getElementById('nombre').textContent = data.nombre;
+    document.getElementById('afiliado').textContent = data.afiliado;
+    document.getElementById('consulta').textContent = data.consulta;
+    document.getElementById('archivo').textContent = data.archivo;
+    document.getElementById('actividad').textContent = data.actividad;
+    document.getElementById('empresa').textContent = data.empresa;
+    document.getElementById('fecha').textContent = data.fecha;
+    document.getElementById('estado').textContent = data.estado;
+    document.getElementById('email').textContent = data.email;
+    document.getElementById('respuesta').textContent = data.respuesta;
+});
